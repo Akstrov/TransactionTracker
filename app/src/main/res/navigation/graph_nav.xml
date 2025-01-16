@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/signInFragment">
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.GoalsFragment"
+        android:label="fragment_goals"
+        tools:layout="@layout/fragment_goals" />
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.AddTransactionFragment"
+        android:label="fragment_add_transaction"
+        tools:layout="@layout/fragment_add_transaction" >
+        <action
+            android:id="@+id/action_addTransactionFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTransactionFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.EditTransactionFragment"
+        android:label="fragment_edit_transaction"
+        tools:layout="@layout/fragment_edit_transaction" >
+        <action
+            android:id="@+id/action_editTransactionFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/recycleBinFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.RecycleBinFragment"
+        android:label="fragment_recycle_bin"
+        tools:layout="@layout/fragment_recycle_bin" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+        <action
+            android:id="@+id/action_transactionsFragment_to_editTransactionFragment"
+            app:destination="@id/editTransactionFragment" />
+        <action
+            android:id="@+id/action_transactionsFragment_to_recycleBinFragment"
+            app:destination="@id/recycleBinFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visualizationsFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.VisualizationsFragment"
+        android:label="fragment_visualizations"
+        tools:layout="@layout/fragment_visualizations" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

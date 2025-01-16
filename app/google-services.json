@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779511132426",
+    "project_id": "transaction-tracker-a3edc",
+    "storage_bucket": "transaction-tracker-a3edc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779511132426:android:51ad83a0c07bddf18b4af3",
+        "android_client_info": {
+          "package_name": "ma.ismagi.cp2.transactiontracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAADJrH4HmSvX-zjKaCoPeJGeE87lo58DU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

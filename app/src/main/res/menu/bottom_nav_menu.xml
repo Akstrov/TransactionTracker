@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Home" />
+    <item
+        android:id="@+id/transactionsFragment"
+        android:title="Transaction" />
+    <item
+        android:id="@+id/goalsFragment"
+        android:title="Goals" />
+    <item
+        android:id="@+id/visualizationsFragment"
+        android:title="Visualizations" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings" />
+</menu>

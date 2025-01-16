@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="transaction"
+            type="ma.ismagi.cp2.transactiontracker.model.Transaction" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/transaction_background"
+        android:elevation="2dp">
+        <!-- Category and Amount Row -->
+        <TextView
+            android:id="@+id/transactionCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{transaction.category}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/transactionAmount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/transactionAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(`$%.2f`, transaction.amount)}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@{transaction.type.equals(`Income`) ? @color/green : @color/red}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Type -->
+        <TextView
+            android:id="@+id/transactionType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{transaction.type}"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionCategory" />
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/transactionDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{transaction.date}"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionCategory" />
+
+        <!-- Note -->
+        <TextView
+            android:id="@+id/transactionNote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{transaction.note}"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="8dp"
+            android:visibility="@{transaction.note.empty ? android.view.View.GONE : android.view.View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionType" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
