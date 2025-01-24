@@ -11,4 +11,8 @@
         <item>Income</item>
         <item>Expense</item>
     </string-array>
+    <string-array name="goal_types">
+        <item>Saving</item>
+        <item>Spending</item>
+    </string-array>
 </resources>

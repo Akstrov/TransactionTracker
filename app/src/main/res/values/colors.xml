@@ -6,4 +6,8 @@
     <color name="green_dark">#00E676</color>
     <color name="red">#F44336</color>
     <color name="red_dark">#FF5252</color>
+    <color name="blue">#2196F3</color>
+    <color name="savingsGoalColor">#4CAF50</color> <!-- Green for savings -->
+    <color name="spendingGoalColor">#F44336</color> <!-- Red for spending -->
+
 </resources>

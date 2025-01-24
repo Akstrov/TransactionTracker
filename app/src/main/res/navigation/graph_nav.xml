@@ -8,7 +8,14 @@
         android:id="@+id/goalsFragment"
         android:name="ma.ismagi.cp2.transactiontracker.ui.GoalsFragment"
         android:label="fragment_goals"
-        tools:layout="@layout/fragment_goals" />
+        tools:layout="@layout/fragment_goals" >
+        <action
+            android:id="@+id/action_goalsFragment_to_addGoalFragment"
+            app:destination="@id/addGoalFragment" />
+        <action
+            android:id="@+id/action_goalsFragment_to_editGoalFragment"
+            app:destination="@id/editGoalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
         android:name="ma.ismagi.cp2.transactiontracker.ui.AddTransactionFragment"
@@ -82,5 +89,26 @@
         android:id="@+id/settingsFragment"
         android:name="ma.ismagi.cp2.transactiontracker.ui.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGoalFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.AddGoalFragment"
+        android:label="AddGoalFragment" >
+        <action
+            android:id="@+id/action_addGoalFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editGoalFragment"
+        android:name="ma.ismagi.cp2.transactiontracker.ui.EditGoalFragment"
+        android:label="fragment_edit_goal"
+        tools:layout="@layout/fragment_edit_goal" >
+        <action
+            android:id="@+id/action_editGoalFragment_to_goalsFragment"
+            app:destination="@id/goalsFragment" />
+    </fragment>
 </navigation>

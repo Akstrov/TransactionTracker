@@ -15,15 +15,32 @@
         android:padding="20dp"
         tools:context=".ui.TransactionsFragment">
 
+        <TextView
+            android:id="@+id/transactionsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Transactions"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <LinearLayout
             android:id="@+id/filter_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
             android:orientation="horizontal"
             android:padding="12dp"
-            android:background="?attr/colorPrimary"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
+            android:background="?attr/colorSurface"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+        android:clipToOutline="true"
+        app:layout_constraintTop_toBottomOf="@+id/transactionsTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -37,7 +54,7 @@
             android:textStyle="bold"
             android:textSize="16sp" />
 
-        <!-- TextInputLayout with Dropdown and Purple Background Shade -->
+        <!-- TextInputLayout with Dropdown and Material Background -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_filter"
             android:layout_width="0dp"
@@ -47,11 +64,11 @@
             app:endIconMode="dropdown_menu"
             app:boxStrokeWidth="2dp"
             app:boxStrokeColor="@android:color/darker_gray"
-            app:boxBackgroundColor="#B39DDB"
         app:hintTextColor="@android:color/white">
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_filter"
+            android:background="@drawable/rounded_backgound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"

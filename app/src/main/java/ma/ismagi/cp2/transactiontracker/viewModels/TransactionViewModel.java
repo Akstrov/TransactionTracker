@@ -106,13 +106,6 @@ public class TransactionViewModel extends ViewModel {
         Log.d("TransactionViewModel", "Deleting transaction: " + transaction);
         String documentId = transaction.getId();
         if (documentId != null) {
-//            db.collection("transactions").document(documentId)
-//                    .delete()
-//                    .addOnSuccessListener(aVoid -> {
-//                        Log.d("TransactionViewModel", "Transaction deleted successfully");
-//                        onSuccess.run();
-//                    })
-//                    .addOnFailureListener(e -> Log.w("TransactionViewModel", "Error deleting transaction", e));
             db.collection("deletedTransactions")
                     .document(documentId) // Use the same ID to maintain traceability
                     .set(transaction)
@@ -123,11 +116,86 @@ public class TransactionViewModel extends ViewModel {
                         db.collection("transactions")
                                 .document(transaction.getId())
                                 .delete()
-                                .addOnSuccessListener(aVoid1 -> Log.d("DeleteTransaction", "Transaction deleted from transactions collection"))
+                                .addOnSuccessListener(aVoid1 -> {
+                                    Log.d("DeleteTransaction", "Transaction deleted from transactions collection");
+                                    updateGoalsForDeletedTransaction(transaction);
+                                    Log.d("DeleteTransaction", "Goal update triggered.");
+
+                                    onSuccess.run();
+                                })
                                 .addOnFailureListener(e -> Log.e("DeleteTransaction", "Failed to delete transaction from transactions collection", e));
                     })
                     .addOnFailureListener(e -> Log.e("DeleteTransaction", "Failed to move transaction to deletedTransactions", e));
 
         }
     }
+
+    private void updateGoalsForDeletedTransaction(Transaction transaction) {
+        String userId = transaction.getCreatedBy();
+        String transactionDate = transaction.getDate();
+
+        // Fetch all goals created by the user
+        db.collection("goals")
+                .whereEqualTo("createdBy", userId)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    for (DocumentSnapshot goalDoc : querySnapshot.getDocuments()) {
+                        String goalId = goalDoc.getId();
+                        String goalCreatedAt = goalDoc.getString("createdAt");
+
+                        // Only update goals created before or on the transaction date
+                        if (goalCreatedAt != null && goalCreatedAt.compareTo(transactionDate) <= 0) {
+                            double targetAmount = goalDoc.getDouble("targetAmount");
+
+                            // Recalculate progress for the goal
+                            GoalProgressHelper.fetchAndUpdateCurrentProgress(goalId, targetAmount, goalCreatedAt, goalDoc.getString("goalType"));
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.w("DeleteTransaction", "Error fetching goals for user", e));
+}
+
+    private void fetchAndUpdateCurrentProgress(String goalId, double targetAmount, String creationDate) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
+        String userId = user.getUid();
+
+        db.collection("transactions")
+                .whereEqualTo("createdBy", userId)
+                .whereGreaterThanOrEqualTo("date", creationDate)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    double totalIncome = 0.0;
+                    double totalExpense = 0.0;
+
+                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                        Double amount = document.getDouble("amount");
+                        String type = document.getString("type"); // "Income" or "Expense"
+
+                        if (amount != null) {
+                            if ("Income".equals(type)) {
+                                totalIncome += amount;
+                            } else if ("Expense".equals(type)) {
+                                totalExpense += amount;
+                            }
+                        }
+                    }
+
+                    double currentProgress = totalIncome - totalExpense;
+                    double progressPercentage = (currentProgress / targetAmount) * 100;
+                    boolean isCompleted = progressPercentage >= 100;
+
+                    // Update the goal document with the calculated progress
+                    db.collection("goals").document(goalId)
+                            .update(
+                                    "currentProgress", currentProgress,
+                                    "progressPercentage", progressPercentage,
+                                    "completed", isCompleted
+                            )
+                            .addOnSuccessListener(unused -> Log.d("AddTransactionViewModel", "Progress updated for goal: " + goalId))
+                            .addOnFailureListener(e -> Log.w("AddTransactionViewModel", "Error updating goal progress", e));
+                })
+                .addOnFailureListener(e -> Log.w("AddTransactionViewModel", "Error fetching transactions for progress update", e));
+    }
+
 }

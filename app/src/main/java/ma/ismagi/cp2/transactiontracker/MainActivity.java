@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             navController.navigate(R.id.signInFragment);
         }else {
-            navController.navigate(R.id.transactionsFragment);
+            navController.navigate(R.id.homeFragment);
         }
     }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="goal"
+            type="ma.ismagi.cp2.transactiontracker.model.Goal" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/goal_background"
+        android:elevation="2dp">
+
+        <!-- Goal Type -->
+        <TextView
+            android:id="@+id/goalType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{goal.goalType.equals(`Saving`) ? `Savings Goal` : `Spending Goal`}"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@{goal.goalType.equals(`Saving`) ? @color/green : @color/red}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Progress -->
+        <TextView
+            android:id="@+id/goalProgress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{`Progress: ` + goal.currentProgress + ` / ` + goal.targetAmount}"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintTop_toBottomOf="@id/goalType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <!-- Deadline -->
+        <TextView
+            android:id="@+id/goalDeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{goal.deadline != null ? `Deadline: ` + goal.deadline : `No Deadline`}"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintTop_toBottomOf="@id/goalProgress"
+            app:layout_constraintStart_toEndOf="@+id/goalDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/goalDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{goal.description}"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/goalDeadline"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
